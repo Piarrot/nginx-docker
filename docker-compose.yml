@@ -1,0 +1,9 @@
+version: "3"
+services:
+    webhosting:
+        container_name: "webhosting"
+        build:
+            context: .
+            dockerfile: Dockerfile
+        network_mode: "host"
+        restart: unless-stopped
