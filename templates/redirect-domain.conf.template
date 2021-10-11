@@ -1,0 +1,5 @@
+server {
+    server_name {{domain}} www.{{domain}};
+    
+    return 301 https://{{domain}}$request_uri;
+}
