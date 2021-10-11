@@ -1,0 +1,57 @@
+#! /bin/bash
+
+if [ "id -u" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
+source utils/spinner.sh
+source utils/docker.sh
+source utils/letsencrypt.sh
+
+ACTION=$1
+DOMAIN=$2
+SITE_ROOT=$3
+USER_EMAIL=$4
+
+function add_domain {
+    echo "🚀 adding '$DOMAIN'"
+    local REVERSE_PROXY_CONF=nginx/conf.d/$DOMAIN.conf
+    if [ -f "$REVERSE_PROXY_CONF" ]; then
+        echo "❌ '$DOMAIN' already defined"
+    else
+        stop_container
+        cp templates/static-site.conf.template $REVERSE_PROXY_CONF
+        sed -i "s/{{domain}}/$DOMAIN/" $REVERSE_PROXY_CONF
+        sed -i "s/{{site_root}}/$SITE_ROOT/" $REVERSE_PROXY_CONF
+        generate_cert $DOMAIN $USER_EMAIL
+        restart_container
+        echo "✔ '$DOMAIN' added"
+    fi
+}
+
+function remove_domain {
+    echo "🚀 removing '$DOMAIN'"
+    REVERSE_PROXY_CONF=nginx/conf.d/$DOMAIN.conf
+    if [ -f "$REVERSE_PROXY_CONF" ]; then
+        stop_container
+        rm $REVERSE_PROXY_CONF
+        remove_cert $DOMAIN
+        restart_container
+        echo "✔ '$DOMAIN' removed"
+    else
+        echo "❌ '$DOMAIN' is not defined"
+    fi
+}
+
+case $ACTION in
+    add)
+    add_domain
+    ;;
+    remove)
+    remove_domain
+    ;;
+    *)
+    echo "$ACTION not recognized"
+esac
+
