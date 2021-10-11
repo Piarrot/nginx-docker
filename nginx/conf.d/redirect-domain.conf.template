@@ -1,5 +1,5 @@
 server {
-    server_name <otherdomain> www.<otherdomain>;
+    server_name <domain> www.<domain>;
     
     return 301 https://<domain>$request_uri;
 }
