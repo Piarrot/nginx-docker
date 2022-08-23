@@ -24,7 +24,7 @@ function add_domain {
 
 function remove_domain {
     echo "🚀 removing '$DOMAIN'"
-    REVERSE_PROXY_CONF=nginx/conf.d/$DOMAIN.conf
+    local REVERSE_PROXY_CONF=nginx/conf.d/$DOMAIN.conf
     if [ -f "$REVERSE_PROXY_CONF" ]; then
         rm $REVERSE_PROXY_CONF
         restart_container

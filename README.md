@@ -7,7 +7,7 @@ docker compose build --no-cache --force-rm webhosting
 ## Add a new certificate
 
 ```sh
-docker compose run -u 0 webhosting "certbot certonly -n --standalone -d <domain> --agree-tos --email <email>"
+docker compose run -u 0 webhosting certbot certonly -n --standalone -d <domain> --agree-tos --email <email>
 ```
 
 ## Running the container
