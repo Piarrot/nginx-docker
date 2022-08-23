@@ -27,6 +27,7 @@ function remove_domain {
     local REVERSE_PROXY_CONF=nginx/conf.d/$DOMAIN.conf
     if [ -f "$REVERSE_PROXY_CONF" ]; then
         rm $REVERSE_PROXY_CONF
+        remove_cert $DOMAIN
         restart_container
         echo "✔ '$DOMAIN' removed"
     else

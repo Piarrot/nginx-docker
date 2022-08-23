@@ -11,5 +11,5 @@ function stop_container {
 }
 
 function docker_run {
-    docker compose run -u 0 webhosting "$*"
+    docker compose run -u 0 webhosting $*
 }
