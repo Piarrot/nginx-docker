@@ -1,7 +1,7 @@
 FROM nginx:alpine
 
 # Install certbot
-apk add certbot
+RUN apk add certbot
 
 # Init certbot cron job (try renew certs every day at noon)
 RUN echo "0 12 * * * /usr/bin/certbot renew --quiet" >> /etc/crontabs/root
