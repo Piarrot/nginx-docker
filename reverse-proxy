@@ -14,8 +14,8 @@ function add_domain {
         echo "❌ '$DOMAIN' already defined"
     else
         cp templates/reverse-proxy.conf.template $REVERSE_PROXY_CONF
-        sed -i "s/{{domain}}/$DOMAIN/" $REVERSE_PROXY_CONF
-        sed -i "s/{{port}}/$SERVER_PORT/" $REVERSE_PROXY_CONF
+        sed -i "s/{{domain}}/$DOMAIN/g" $REVERSE_PROXY_CONF
+        sed -i "s/{{port}}/$SERVER_PORT/g" $REVERSE_PROXY_CONF
         generate_cert $DOMAIN $USER_EMAIL
         restart_container
         echo "✔ '$DOMAIN' added"
