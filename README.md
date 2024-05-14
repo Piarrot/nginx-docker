@@ -1,3 +1,8 @@
+## :warning: **Nginx Docker is not maintained**
+This repository has been temporarily archived on 2024-14-05 for a lack of maintainance. We discurage any and all use use this tool for the time-beign, while we start a new working implementation
+
+# Nginx Docker
+
 ## Rebuild the container after any conf.d modification
 
 ```sh
